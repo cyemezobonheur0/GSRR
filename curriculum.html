@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum - GS REMERA RUKOMA</title>
+    <link rel="icon" href="icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ============ HEADER & NAVIGATION ============ */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: rotate 4s linear infinite;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* ============ PAGE HEADER ============ */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            background-size: 400% 400%;
+            color: var(--white);
+            padding: 60px 2rem;
+            text-align: center;
+            animation: gradientShift 8s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            animation: slideInRight 0.8s ease-out 0.2s both;
+        }
+
+        /* ============ CONTENT SECTION ============ */
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* ============ CURRICULUM CARDS ============ */
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .curriculum-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: scaleUp 0.6s ease-out;
+            transition: 0.3s ease;
+        }
+
+        .curriculum-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .curriculum-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .curriculum-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .curriculum-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .curriculum-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .curriculum-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .curriculum-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .curriculum-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .curriculum-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .curriculum-header .subject-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .curriculum-body {
+            padding: 2rem;
+        }
+
+        .curriculum-body p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .topics-list {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .topics-list h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .topics-list ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .topics-list li {
+            color: var(--text-light);
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .topics-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* ============ GRADE LEVELS ============ */
+        .grade-section {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .grade-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .grade-content {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 5px;
+        }
+
+        .grade-content p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ============ TEACHING METHOD ============ */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .method-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            border-top: 5px solid var(--primary-color);
+            animation: fadeIn 0.8s ease-out;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .method-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .method-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .method-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .method-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .method-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .method-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .method-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .method-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: linear-gradient(135deg, var(--text-dark), var(--secondary-color));
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            color: #d1d5db;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            nav.active ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <div class="header-container">
+            <a href="school.html" style="text-decoration: none; color: inherit;">
+                <div class="logo">
+                    <div class="logo-icon">🎓</div>
+                    GS REMERA RUKOMA
+                </div>
+            </a>
+            <nav id="navbar">
+                <ul>
+                    <li><a href="school.html">Home</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="curriculum.html">Curriculum</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <h1>Our Curriculum</h1>
+        <p>Comprehensive & Modern Education Programs</p>
+    </section>
+
+    <!-- CURRICULUM CONTENT -->
+    <section class="content-section">
+        <h2 class="section-title">Academic Excellence Through Comprehensive Learning</h2>
+        <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.8; margin-bottom: 3rem;">
+            Our curriculum is carefully designed to develop critical thinking, creativity, and problem-solving skills while maintaining rigorous academic standards. We balance traditional subjects with modern skills to prepare students for success in higher education and beyond.
+        </p>
+
+        <!-- CORE SUBJECTS -->
+        <h2 class="section-title">Core Subjects</h2>
+        <div class="curriculum-grid">
+            <div class="curriculum-card">
+                <div class="curriculum-header">
+                    <div class="subject-icon">📐</div>
+                    <h3>Mathematics</h3>
+                </div>
+                <div class="curriculum-body">
+                    <p>Develop mathematical thinking and problem-solving skills through a progressive curriculum.</p>
+                    <div class="topics-list">
+                        <h4>Topics Include:</h4>
+                        <ul>
+                            <li>Arithmetic & Algebra</li>
+                            <li>Geometry & Trigonometry</li>
+                            <li>Calculus</li>
+                            <li>Statistics & Probability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="curriculum-card">
+                <div class="curriculum-header">
+                    <div class="subject-icon">🔬</div>
+                    <h3>Science</h3>
+                </div>
+                <div class="curriculum-body">
+                    <p>Explore the natural world through hands-on experiments and scientific inquiry.</p>
+                    <div class="topics-list">
+                        <h4>Topics Include:</h4>
+                        <ul>
+                            <li>Physics</li>
+                            <li>Chemistry</li>
+                            <li>Biology</li>
+                            <li>Computer science</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="curriculum-card">
+                <div class="curriculum-header">
+                    <div class="subject-icon">📖</div>
+                    <h3>Nursing skills</h3>
+                </div>
+                <div class="curriculum-body">
+                    <p>Develop excellent communication and analytical skills through literature and composition.</p>
+                    <div class="topics-list">
+                        <h4>Topics Include:</h4>
+                        <ul>
+                            <li>Pharmacology</li>
+                            <li>Maternal and child care</li>
+                            <li>Laboratory skills</li>
+                            <li>Surgery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="curriculum-card">
+                <div class="curriculum-header">
+                    <div class="subject-icon">🌍</div>
+                    <h3>Ordinary Level</h3>
+                </div>
+                <div class="curriculum-body">
+                    <p>Understand human societies and historical developments that shape our world.</p>
+                    <div class="topics-list">
+                        <h4>Topics Include:</h4>
+                        <ul>
+                            <li>Sciences</li>
+                            <li>Geography and History</li>
+                            <li>Languages</li>
+                            <li>Cultural Studies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="curriculum-card">
+                <div class="curriculum-header">
+                    <div class="subject-icon">💻</div>
+                    <h3>Technology & Computing</h3>
+                </div>
+                <div class="curriculum-body">
+                    <p>Build digital literacy and coding skills essential for the modern world.</p>
+                    <div class="topics-list">
+                        <h4>Topics Include:</h4>
+                        <ul>
+                            <li>Computer Science</li>
+                            <li>Programming</li>
+                            <li>Digital Design</li>
+                            <li>Cybersecurity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="curriculum-card">
+                <div class="curriculum-header">
+                    <div class="subject-icon">🎨</div>
+                    <h3>Arts & Electives</h3>
+                </div>
+                <div class="curriculum-body">
+                    <p>Express creativity and explore diverse interests through arts and elective courses.</p>
+                    <div class="topics-list">
+                        <h4>Topics Include:</h4>
+                        <ul>
+                            <li>Visual Arts</li>
+                            <li>Music</li>
+                            <li>Drama</li>
+                            <li>Physical Education</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRADE LEVELS -->
+        <h2 class="section-title">Grade Levels & Focus Areas</h2>
+
+        <div class="grade-section">
+            <h3>📚 Ordinary level (Senior 1-3)</h3>
+            <div class="grade-content">
+                <p>Foundation building with emphasis on reading, writing, and numeracy skills. Our elementary curriculum focuses on developing curiosity, critical thinking, and a love of learning. Students receive instruction in all core subjects along with art, music, and physical education.</p>
+            </div>
+        </div>
+
+        <div class="grade-section">
+            <h3>🎯 Advanced level (Senior 4-6)</h3>
+            <div class="grade-content">
+                <p>Transition to specialized instruction with exploration of various subjects and interests. Students develop independence and subject expertise while building social and emotional skills. Introduction to advanced concepts and extracurricular activities.</p>
+            </div>
+        </div>
+
+        <div class="grade-section">
+            <h3>🏆 Associative Nursing Programm (Senior 4-6)</h3>
+            <div class="grade-content">
+                <p>College-preparatory curriculum with advanced placement (AP) options. Students pursue specialized interests, complete service learning projects, and prepare for post-secondary education. Emphasis on leadership development and real-world applications of academic skills.</p>
+            </div>
+        </div>
+
+        <!-- TEACHING METHODS -->
+        <h2 class="section-title">Our Teaching Methodology</h2>
+        <div class="method-grid">
+            <div class="method-card">
+                <div class="method-icon">🔍</div>
+                <h4>Inquiry-Based Learning</h4>
+                <p>Students ask questions, explore problems, and discover solutions through guided investigation and hands-on activities.</p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">👥</div>
+                <h4>Collaborative Learning</h4>
+                <p>Emphasis on teamwork and group projects to develop communication and interpersonal skills alongside academic knowledge.</p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">🎬</div>
+                <h4>Project-Based Learning</h4>
+                <p>Real-world projects that integrate multiple subjects and challenge students to apply their learning to practical situations.</p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">🌱</div>
+                <h4>Differentiated Instruction</h4>
+                <p>Tailored learning experiences that meet individual student needs, abilities, and learning styles for optimal engagement.</p>
+            </div>
+        </div>
+
+        <!-- ADDITIONAL PROGRAMS -->
+        <h2 class="section-title">Special Programs & Opportunities</h2>
+        <div style="background: var(--bg-light); padding: 2rem; border-radius: 10px; margin: 2rem 0;">
+            <ul style="list-style: none; color: var(--text-light); line-height: 2;">
+                <li style="padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--accent-color); font-weight: bold;">✓</span>
+                    Advanced Placement (AP) Courses - College-level curriculum for motivated students
+                </li>
+                <li style="padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--accent-color); font-weight: bold;">✓</span>
+                    International Baccalaureate (IB) Program - Globally recognized curriculum
+                </li>
+                <li style="padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--accent-color); font-weight: bold;">✓</span>
+                    STEM Excellence Program - Science, Technology, Engineering, Mathematics focus
+                </li>
+                <li style="padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--accent-color); font-weight: bold;">✓</span>
+                    Language Immersion - Spanish, French, and Mandarin programs
+                </li>
+                <li style="padding-left: 2rem; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--accent-color); font-weight: bold;">✓</span>
+                    Service Learning - Community engagement and social responsibility
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About GS REMERA RUKOMA</h4>
+                <p>Committed to educational excellence and student success since 1999.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="school.html">Home</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="curriculum.html">Curriculum</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Academics</h4>
+                <ul>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="curriculum.html">Curriculum</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Twitter">𝕏</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GSRR. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navbar = document.getElementById('navbar');
+
+        mobileToggle.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        const navLinks = navbar.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
