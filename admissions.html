@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions - GS REMERA RUKOMA</title>
+    <link rel="icon" href="icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ============ ANIMATIONS ============ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ============ HEADER & NAVIGATION ============ */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: rotate 4s linear infinite;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        /* ============ PAGE HEADER ============ */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            background-size: 400% 400%;
+            color: var(--white);
+            padding: 60px 2rem;
+            text-align: center;
+            animation: gradientShift 8s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            animation: slideInRight 0.8s ease-out 0.2s both;
+        }
+
+        /* ============ CONTENT SECTION ============ */
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* ============ REQUIREMENTS SECTION ============ */
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .requirement-card {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            animation: fadeIn 0.8s ease-out;
+            transition: 0.3s ease;
+        }
+
+        .requirement-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .requirement-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .requirement-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .requirement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .requirement-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .requirement-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ============ PROCESS SECTION ============ */
+        .process-container {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            margin: 3rem 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            animation: scaleUp 0.6s ease-out;
+        }
+
+        .step:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .step:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .step:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .step:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        .step h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ============ TIMELINE ============ */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            top: 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .timeline-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .timeline-content {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-left: 50%;
+            padding-left: 3rem;
+            border-left: 3px solid var(--accent-color);
+            transition: 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-date {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ============ CONTACT INFO ============ */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .info-box {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+            transition: 0.3s ease;
+        }
+
+        .info-box:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .info-box:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .info-box:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .info-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            color: var(--text-light);
+        }
+
+        /* ============ FORM ============ */
+        .form-container {
+            background: var(--bg-light);
+            padding: 3rem;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 3rem auto;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 5px;
+            font-family: inherit;
+            transition: 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ============ CTA BUTTON ============ */
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s ease;
+            border: 2px solid var(--accent-color);
+            margin-top: 1.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: linear-gradient(135deg, var(--text-dark), var(--secondary-color));
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            color: #d1d5db;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            nav.active ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                margin-left: 0;
+                padding-left: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <div class="header-container">
+            <a href="school.html" style="text-decoration: none; color: inherit;">
+                <div class="logo">
+                    <div class="logo-icon">🎓</div>
+                    GS REMERA RUKOMA
+                </div>
+            </a>
+            <nav id="navbar">
+                <ul>
+                    <li><a href="school.html">Home</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="curriculum.html">Curriculum</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <h1>Admissions</h1>
+        <p>Join GS REMERA RUKOMA - Your Path to Academic Excellence</p>
+    </section>
+
+    <!-- ADMISSIONS CONTENT -->
+    <section class="content-section">
+        <h2 class="section-title">Welcome to Our Admissions Process</h2>
+        <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.8; margin-bottom: 2rem;">
+            We are delighted that you are considering Elite Academy for your education. Our comprehensive admissions process is designed to identify students who will thrive in our supportive academic environment. We look for students who demonstrate academic potential, intellectual curiosity, and a commitment to personal growth.
+        </p>
+
+        <!-- ELIGIBILITY SECTION -->
+        <h2 class="section-title">Eligibility Requirements</h2>
+        <div class="requirements-grid">
+            <div class="requirement-card">
+                <h3>📋 Academic Standards</h3>
+                <p>Minimum GPA of 3.0 or equivalent. Students should demonstrate consistent academic performance and engagement in their previous schooling.</p>
+            </div>
+            <div class="requirement-card">
+                <h3>✅ Age Requirements</h3>
+                <p>Students must be at least 5 years old for kindergarten. Age-appropriate placement will be determined based on birth date and developmental readiness.</p>
+            </div>
+            <div class="requirement-card">
+                <h3>📝 Documentation</h3>
+                <p>Completed application form, previous school transcripts, and letters of recommendation from teachers or counselors.</p>
+            </div>
+        </div>
+
+        <!-- ADMISSION PROCESS -->
+        <h2 class="section-title">Admission Process</h2>
+        <div class="process-container">
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Submit Application</h3>
+                    <p>Complete the online application form with personal, academic, and family information.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Document Submission</h3>
+                    <p>Provide transcripts, recommendations, and any other required documents for review.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Entrance Assessment</h3>
+                    <p>Take our standardized test to assess academic readiness and learning potential.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Interview & Decision</h3>
+                    <p>Participate in an interview and receive admission decision within 2-3 weeks.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <h2 class="section-title">Important Dates & Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">September 1 - October 15</div>
+                    <div class="timeline-title">Application Submission Window</div>
+                    <p>Submit your completed application and required documents online.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">October 20 - November 10</div>
+                    <div class="timeline-title">Entrance Assessments</div>
+                    <p>Schedule and complete entrance tests at our campus.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">November 15 - December 1</div>
+                    <div class="timeline-title">Interviews Conducted</div>
+                    <p>Participate in personal or virtual interviews with admissions team.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">December 15</div>
+                    <div class="timeline-title">Admission Decisions Released</div>
+                    <p>Receive admission decision via email or mail.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLICATION FORM -->
+        <h2 class="section-title">Application Form</h2>
+        <div class="form-container">
+            <form id="admissionForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="grade">Desired Grade Level *</label>
+                    <select id="grade" name="grade" required>
+                        <option value="">Select Grade</option>
+                        <option value="kindergarten">Kindergarten</option>
+                        <option value="elementary">Elementary (1-5)</option>
+                        <option value="middle">Middle School (6-8)</option>
+                        <option value="high">High School (9-12)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="school">Current/Previous School *</label>
+                    <input type="text" id="school" name="school" required>
+                </div>
+                <div class="form-group">
+                    <label for="gpa">Current GPA *</label>
+                    <input type="text" id="gpa" name="gpa" placeholder="e.g., 3.5" required>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+
+        <!-- CONTACT SECTION -->
+        <h2 class="section-title">Contact Our Admissions Team</h2>
+        <div class="contact-info-grid">
+            <div class="info-box">
+                <div class="info-icon">📧</div>
+                <h3>Email</h3>
+                <p><a href="mailto:admissions@eliteacademy.com" style="color: var(--primary-color);">admissions@eliteacademy.com</a></p>
+            </div>
+            <div class="info-box">
+                <div class="info-icon">📞</div>
+                <h3>Phone</h3>
+                <p><a href="tel:+15551234567" style="color: var(--primary-color);">(555) 123-4567</a></p>
+            </div>
+            <div class="info-box">
+                <div class="info-icon">📍</div>
+                <h3>Visit Campus</h3>
+                <p>123 Education Lane<br>Learning City, LC 12345</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About GS REMERA RUKOMA</h4>
+                <p>Committed to educational excellence and student success since 1999.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="school.html">Home</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="curriculum.html">Curriculum</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Academics</h4>
+                <ul>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="curriculum.html">Curriculum</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Twitter">𝕏</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="LinkedIn">in</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GS RR. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navbar = document.getElementById('navbar');
+
+        mobileToggle.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        const navLinks = navbar.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+            });
+        });
+
+        // Form submission
+        const admissionForm = document.getElementById('admissionForm');
+        admissionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for submitting your application! We will review it and contact you soon.');
+            admissionForm.reset();
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
